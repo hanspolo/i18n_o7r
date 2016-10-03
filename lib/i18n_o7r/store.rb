@@ -25,6 +25,11 @@ class I18nO7r::Store
 
   def for(keys, locale: nil)
     vv = keys.inject(translations[locale.try(:to_sym) || I18nO7r.primary_language]) do |a,e| (a ? a[e.to_sym] : nil) end
+    if vv.nil?
+      vv = {}
+      vv[keys.last] = nil
+    end
+    vv
   end
 
   def reload!
